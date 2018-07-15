@@ -64,13 +64,10 @@ $sql = 'INSERT INTO `tasks`(`title`,`date`,`detail`)VALUES (?,?,?)';
 
         <div class="col-xs-8">
           <div class="task">
-            <h3><?php echo $_POST['date'];?></h3>
-            <div class="content">
-              <h3 style="font-weight: bold;"><?php echo $_POST['title'];?></h3>
-              <h4><?php echo $_POST['detail'];?></h4>
+
 <?php
 // ２．SQL文を実行する
-$sql = 'SELECT * FROM `tasks`';
+$sql = 'SELECT * FROM tasks ORDER BY date DESC';
 // SQLを実行
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
