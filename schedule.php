@@ -39,7 +39,6 @@ $sql = 'INSERT INTO `tasks`(`title`,`date`,`detail`)VALUES (?,?,?)';
 
 
 
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -57,6 +56,7 @@ $sql = 'INSERT INTO `tasks`(`title`,`date`,`detail`)VALUES (?,?,?)';
 
         <h2 class="text-center content_header">タスク管理</h2>
 
+
         <div class="col-xs-4">
           <!-- hrefでpost.phpに戻らす -->
           <a href="post.php" class="btn btn-primary button">追加</a>
@@ -64,7 +64,14 @@ $sql = 'INSERT INTO `tasks`(`title`,`date`,`detail`)VALUES (?,?,?)';
 
         <div class="col-xs-8">
           <div class="task">
-
+<div class="col-xs-8">
+          <div class="task">
+<!--             <h3></h3>
+            <div class="content">
+              <h3 style="font-weight: bold;">明日映画に行く</h3>
+              <h4>ノブさんと映画見に行くことになったが、気まずいら事前に誰かを誘いたい。太一にはもう聞いて見たが断られた。でも二人で行きたくないから必死に誰かを誘いたい</h4>
+            </div>
+          </div> -->
 <?php
 // ２．SQL文を実行する
 $sql = 'SELECT * FROM tasks ORDER BY date DESC';
@@ -78,6 +85,7 @@ while (1) {
   if ($rec == false) {
     break;
   }
+
 
   echo $rec['title'] . '<br>';
   echo $rec['date'] . '<br>';
