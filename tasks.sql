@@ -37,6 +37,8 @@ CREATE TABLE `tasks` (
 
 --
 -- Indexes for dumped tables
+INSERT INTO `tasks` (`id`, `title`, `date`, `deti`) VALUES
+(1, 'テスト', 'Hello oneline_bbs!!', '2016-01-01 00:00:00');
 --
 
 --
