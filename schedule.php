@@ -7,36 +7,24 @@
     $dbh = new PDO($dsn, $user, $password);
     $dbh ->query('SET NAMES utf8');
 
-      //   //2.SQL文を実行する
-      //   // WHEREはどういう条件か
-      //   // 定義しなくても使える変数　スーパーグローバル変数
+// ２．SQL文を実行する
+    $sql = 'SELECT * FROM tasks ORDER BY date ASC';
+    // SQLを実行
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
 
-          if(!empty($_POST)){
-        $title = htmlspecialchars($_POST['title']);
-        $date = htmlspecialchars($_POST['date']);
-        $detail = htmlspecialchars($_POST['detail']);
+    $comments = array();
+    while (1) {
+      $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+      if ($rec == false) {
+        break;
+      }
+      $comments[] = $rec;
+    }
 
-
-
-$sql = 'INSERT INTO `tasks`(`title`,`date`,`detail`)VALUES (?,?,?)';
-
-// $data = [$_POST['nickname'],[$_POST['comment'],[$_POST['created']
-
-// 'created' = now'
-
-// インジェクション
-    $data[] = $title;
-    $data[] = $date;
-    $data[] = $detail;
-    $stml = $dbh->prepare($sql);
-    $stml->execute($data);
-// }
-
-
-}
-
+    // ３．データベースを切断する
+    $dbh = null;
 ?>
-
 
 
 <!DOCTYPE html>
@@ -64,48 +52,22 @@ $sql = 'INSERT INTO `tasks`(`title`,`date`,`detail`)VALUES (?,?,?)';
 
         <div class="col-xs-8">
           <div class="task">
-<div class="col-xs-8">
-          <div class="task">
-<!--             <h3></h3>
-            <div class="content">
-              <h3 style="font-weight: bold;">明日映画に行く</h3>
-              <h4>ノブさんと映画見に行くことになったが、気まずいら事前に誰かを誘いたい。太一にはもう聞いて見たが断られた。でも二人で行きたくないから必死に誰かを誘いたい</h4>
+             <?php foreach ($comments as $comment): ?>
+              <h3><?php echo $comment ['date']?></h3>
+              <div class="content">
+              <h3 style="font-weight: bold;"><?php echo $comment ['title']?></h3>
+              <h4><?php echo $comment ['detail']?></h4>
+               <a href="edit.php?id=<?php echo $comment["id"]; ?>" class="btn btn-success" style="color: white">編集</a>
+                   <a href="delete.php?id=<?php echo $comment["id"]; ?>" class="btn btn-danger" style="color: white">削除</a>
             </div>
-          </div> -->
-<?php
-// ２．SQL文を実行する
-$sql = 'SELECT * FROM tasks ORDER BY date DESC';
-// SQLを実行
-$stmt = $dbh->prepare($sql);
-$stmt->execute();
-
-
-while (1) {
-  $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-  if ($rec == false) {
-    break;
-  }
-
-
-  echo $rec['title'] . '<br>';
-  echo $rec['date'] . '<br>';
-  echo $rec['detail'] . '<br>';
-  echo '<hr>';
-}
-
-// ３．データベースを切断する
-$dbh = null;
-?>
-
-            </div>
-          </div>
-
+           <?php endforeach; ?>
           </div>
         </div>
-
       </div>
+
     </div>
   </div>
+
 
   <script src="assets/js/jquery-3.1.1.js"></script>
   <script src="assets/js/jquery-migrate-1.4.1.js"></script>

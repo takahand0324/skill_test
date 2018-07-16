@@ -33,7 +33,11 @@ $sql = 'INSERT INTO `tasks`(`title`,`date`,`detail`)VALUES (?,?,?)';
 // }
     $dbh = null;
 
+    header ("Location: schedule.php");
+    exit();
+
 }
+
 ?>
 
 
@@ -55,9 +59,9 @@ $sql = 'INSERT INTO `tasks`(`title`,`date`,`detail`)VALUES (?,?,?)';
       <div class="col-xs-8 col-xs-offset-2 thumbnail">
         <h2 class="text-center content_header">タスク追加</h2>
 
-        <form method="post" action="schedule.php">
+        <form method="post" action="">
           <div class="form-group">
-            <label for="task">タスク</label>
+            <label for="task"></label>
             <input type = "text" name="title" class="form-control">
           </div>
           <div class="form-group">
